@@ -2,6 +2,7 @@ import {
   Image,
   ImageBackground,
   Platform,
+  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -9,6 +10,7 @@ import {
   View,
 } from "react-native";
 import React, { FC, LegacyRef, useEffect, useRef } from "react";
+import { Octicons, AntDesign } from "@expo/vector-icons";
 
 interface IOboardingProps {
   pages: any[];
@@ -16,6 +18,8 @@ interface IOboardingProps {
 }
 
 const Onboarding: FC<IOboardingProps> = ({ pages }) => {
+  const bars = [1, 2, 3];
+  let currentBar = 1;
   const [page] = pages;
 
   return (
@@ -25,7 +29,7 @@ const Onboarding: FC<IOboardingProps> = ({ pages }) => {
         resizeMode="cover"
         style={styles.imgBG}
       >
-        <View style={styles.overlay}>
+        <SafeAreaView style={styles.overlay}>
           <View style={styles.logoContainer}>
             <Text style={styles.logo}>.homs</Text>
           </View>
@@ -40,22 +44,35 @@ const Onboarding: FC<IOboardingProps> = ({ pages }) => {
               <Text style={styles.info}>Post your requirements</Text>
               <Text style={styles.info}>and get highly relevant matches.</Text>
             </View>
-            <View style={styles.swipeBar}>
-              <TouchableOpacity>
-                <Text>Skip</Text>
-              </TouchableOpacity>
-
-              <View>
-                <Text>Bars</Text>
-              </View>
-
-              <TouchableOpacity>
-                <Text>Next</Text>
-              </TouchableOpacity>
-            </View>
           </View>
-        </View>
+        </SafeAreaView>
       </ImageBackground>
+      <View style={styles.swipeBar}>
+        <TouchableOpacity style={styles.skipBtn}>
+          <Text style={styles.skipText}>Skip</Text>
+        </TouchableOpacity>
+
+        <View style={styles.bars}>
+          {bars.map((bar) => (
+            <Octicons
+              name="dash"
+              size={34}
+              key={bar}
+              style={[styles.bar, currentBar == bar && styles.activeBar]}
+              color="black"
+            />
+          ))}
+        </View>
+
+        <TouchableOpacity style={styles.nextBtn}>
+          <AntDesign
+            name="right"
+            style={styles.nextIcon}
+            size={24}
+            color="black"
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -63,6 +80,36 @@ const Onboarding: FC<IOboardingProps> = ({ pages }) => {
 export default Onboarding;
 
 const styles = StyleSheet.create({
+  nextIcon: {},
+  nextBtn: {
+    width: 60,
+    height: 60,
+    backgroundColor: "white",
+    borderRadius: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  skipBtn: {
+    width: 60,
+    height: 60,
+    display: "flex",
+    justifyContent: "center",
+  },
+  bars: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  bar: {
+    marginHorizontal: 5,
+    color: "#ffffff55",
+  },
+  activeBar: { color: "#ffffff" },
+  skipText: {
+    color: "white",
+    fontSize: 15,
+    fontFamily: "Poppins_500Medium",
+  },
   headingContainer: {
     width: "100%",
     paddingHorizontal: 30,
@@ -70,19 +117,20 @@ const styles = StyleSheet.create({
   infoContainer: {
     width: "100%",
     paddingHorizontal: 30,
-    paddingVertical: 50,
+    paddingTop: 50,
+    marginBottom: 150,
   },
   info: {
     color: "white",
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: "Poppins_500Medium",
     lineHeight: 20,
   },
   heading: {
     color: "white",
-    fontSize: 40,
-    fontFamily: "Poppins_500Medium",
-    lineHeight: 45,
+    fontSize: 50,
+    fontFamily: "Poppins_600SemiBold",
+    lineHeight: 60,
   },
   screen: {
     flex: 1,
@@ -96,10 +144,11 @@ const styles = StyleSheet.create({
   logo: {
     color: "white",
     fontSize: 38,
-    fontFamily: "Poppins_500Medium",
+    fontFamily: "Poppins_600SemiBold",
   },
   imgBG: {
     flex: 1,
+    position: "relative",
   },
   overlay: {
     height: "100%",
@@ -108,13 +157,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#11111122",
   },
   swipeBar: {
-    // backgroundColor: "#ff0000",
     height: 80,
     width: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 30,
+    paddingLeft: 30,
+    paddingRight: 10,
+    position: "absolute",
+    bottom: 0,
   },
 });
