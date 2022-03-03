@@ -8,57 +8,82 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  Dimensions,
 } from "react-native";
-import React, { FC, LegacyRef, useEffect, useRef } from "react";
+import React, { FC, LegacyRef, useEffect, useRef, useState } from "react";
 import { Octicons, AntDesign } from "@expo/vector-icons";
+import FirstSlide from "./FirstSlide";
+import SecondSlide from "./SecondSlide";
+import ThirdSlide from "./ThirdSlide";
 
-interface IOboardingProps {
-  pages: any[];
-  // pages: { title: string; subtitle: string; image: string }[];
-}
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
 
-const Onboarding: FC<IOboardingProps> = ({ pages }) => {
-  const bars = [1, 2, 3];
-  let currentBar = 1;
-  const [page] = pages;
+const Onboarding: FC<IOboardingProps> = () => {
+  const scrollViewRef = useRef<LegacyRef<ScrollView>>(null);
+
+  const [currentSlide, setSlide] = useState<number>(0);
+
+  const PAGES = [1, 2, 3];
+
+  const scrolled = (nativeEvent: NativeScrollEvent) => {
+    if (nativeEvent) {
+      const slide = Math.ceil(
+        nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+      );
+      if (slide != currentSlide) {
+        setSlide(slide);
+      }
+    }
+  };
+
+  const skip = () => {
+    if (scrollViewRef) {
+      scrollViewRef.current.scrollToEnd({ animate: true });
+    }
+  };
 
   return (
     <View style={styles.screen}>
-      <ImageBackground
-        source={require("@app/assets/images/one.webp")}
-        resizeMode="cover"
-        style={styles.imgBG}
+      <ScrollView
+        style={{ backgroundColor: "#ffacbe", flex: 1 }}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        onScroll={(ev) => scrolled(ev.nativeEvent)}
+        snapToInterval={WIDTH}
+        decelerationRate="fast"
+        ref={scrollViewRef}
       >
-        <SafeAreaView style={styles.overlay}>
-          <View style={styles.logoContainer}>
-            <Text style={styles.logo}>.homs</Text>
-          </View>
-
-          <View>
-            <View style={styles.headingContainer}>
-              <Text style={styles.heading}>Find</Text>
-              <Text style={styles.heading}>the perfect</Text>
-              <Text style={styles.heading}>place</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.info}>Post your requirements</Text>
-              <Text style={styles.info}>and get highly relevant matches.</Text>
-            </View>
-          </View>
-        </SafeAreaView>
-      </ImageBackground>
+        <FirstSlide />
+        <SecondSlide />
+        <ThirdSlide />
+      </ScrollView>
       <View style={styles.swipeBar}>
-        <TouchableOpacity style={styles.skipBtn}>
-          <Text style={styles.skipText}>Skip</Text>
+        <TouchableOpacity
+          style={[styles.skipBtn]}
+          onPress={() => skip()}
+          disabled={PAGES.length == currentSlide + 1}
+        >
+          <Text
+            style={[
+              styles.skipText,
+              PAGES.length == currentSlide + 1 && styles.dullSkipText,
+            ]}
+          >
+            Skip
+          </Text>
         </TouchableOpacity>
 
         <View style={styles.bars}>
-          {bars.map((bar) => (
+          {PAGES.map((bar, index) => (
             <Octicons
               name="dash"
               size={34}
-              key={bar}
-              style={[styles.bar, currentBar == bar && styles.activeBar]}
+              key={index}
+              style={[styles.bar, currentSlide == index && styles.activeBar]}
               color="black"
             />
           ))}
@@ -96,6 +121,9 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
   },
+  dullSkipText: {
+    color: "#00000000",
+  },
   bars: {
     display: "flex",
     flexDirection: "row",
@@ -110,51 +138,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Poppins_500Medium",
   },
-  headingContainer: {
-    width: "100%",
-    paddingHorizontal: 30,
-  },
-  infoContainer: {
-    width: "100%",
-    paddingHorizontal: 30,
-    paddingTop: 50,
-    marginBottom: 150,
-  },
-  info: {
-    color: "white",
-    fontSize: 15,
-    fontFamily: "Poppins_500Medium",
-    lineHeight: 20,
-  },
-  heading: {
-    color: "white",
-    fontSize: 50,
-    fontFamily: "Poppins_600SemiBold",
-    lineHeight: 60,
-  },
+
   screen: {
     flex: 1,
-  },
-  logoContainer: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight + 5 : 0,
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-  },
-  logo: {
-    color: "white",
-    fontSize: 38,
-    fontFamily: "Poppins_600SemiBold",
-  },
-  imgBG: {
-    flex: 1,
-    position: "relative",
-  },
-  overlay: {
-    height: "100%",
-    width: "100%",
-    justifyContent: "space-between",
-    backgroundColor: "#11111122",
+    width: WIDTH,
   },
   swipeBar: {
     height: 80,
