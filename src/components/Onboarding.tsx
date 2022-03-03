@@ -18,11 +18,14 @@ import { Octicons, AntDesign } from "@expo/vector-icons";
 import FirstSlide from "./FirstSlide";
 import SecondSlide from "./SecondSlide";
 import ThirdSlide from "./ThirdSlide";
+import { useNavigation } from "@react-navigation/native";
+import { HOME } from "../constants/screens";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
 const Onboarding: FC<IOboardingProps> = () => {
+  const navigation = useNavigation();
   const scrollViewRef = useRef<LegacyRef<ScrollView>>(null);
 
   const [currentSlide, setSlide] = useState<number>(0);
@@ -44,6 +47,10 @@ const Onboarding: FC<IOboardingProps> = () => {
     if (scrollViewRef) {
       scrollViewRef.current.scrollToEnd({ animate: true });
     }
+  };
+
+  const nextPage = () => {
+    navigation.navigate(HOME);
   };
 
   return (
@@ -89,7 +96,7 @@ const Onboarding: FC<IOboardingProps> = () => {
           ))}
         </View>
 
-        <TouchableOpacity style={styles.nextBtn}>
+        <TouchableOpacity style={styles.nextBtn} onPress={() => nextPage()}>
           <AntDesign
             name="right"
             style={styles.nextIcon}
