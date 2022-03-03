@@ -1,6 +1,6 @@
 # Broker Network - Property Finder Platform for Realtors
 
-## This React Native App was design by [rondesignlabuxui]('https://dribbble.com/shots/17579538-Broker-Network-Property-Finder-Platform-for-Realtors') on [Dribble]('https://dribbble.com/rondesignlabuxui).
+## This React Native App was design by [rondesignlabuxui](https://dribbble.com/shots/17579538-Broker-Network-Property-Finder-Platform-for-Realtors) on [Dribble](https://dribbble.com/rondesignlabuxui).
 
 ![App Design](./design.webp)
 
