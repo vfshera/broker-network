@@ -5,20 +5,7 @@ import Onboarding from "../components/Onboarding";
 const IntroScreen = () => {
   return (
     <SafeAreaView style={styles.main}>
-      <Onboarding
-        pages={[
-          {
-            image: require("@app/assets/images/one.webp"),
-            title: "Onboarding 1",
-            subtitle: "Done with React Native Onboarding Swiper",
-          },
-          {
-            image: require("@app/assets/images/two.webp"),
-            title: "Onboarding 2",
-            subtitle: "Done with React Native Onboarding Swiper",
-          },
-        ]}
-      />
+      <Onboarding />
     </SafeAreaView>
   );
 };
