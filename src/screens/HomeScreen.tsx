@@ -16,11 +16,14 @@ import {
   AntDesign,
   MaterialIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { APARTMENT } from "../constants/screens";
 
 const { width, height } = Dimensions.get("window");
 
 const HomeScreen = () => {
   const [menu, setMenu] = useState<number>(3);
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -91,6 +94,7 @@ const HomeScreen = () => {
 
             <View style={styles.bottomButtonsContainener}>
               <TouchableOpacity
+                onPress={() => navigation.navigate(APARTMENT)}
                 style={[
                   styles.tab,
                   {
@@ -106,7 +110,7 @@ const HomeScreen = () => {
               >
                 <Feather name="file" size={24} color="black" />
                 <Text style={[styles.tabText, { marginLeft: 5 }]}>
-                  Whole list
+                  Sales Kit
                 </Text>
               </TouchableOpacity>
 

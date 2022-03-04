@@ -3,6 +3,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import IntroScreen from "./screens/IntroScreen";
+import { APARTMENT, HOME, INTRO } from "./constants/screens";
+import ApartmentScreen from "./screens/ApartmentScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -11,10 +13,32 @@ const StackNavigator = () => {
       initialRouteName="Intro"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Intro" component={IntroScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name={INTRO} component={IntroScreen} />
+      <Stack.Screen name={HOME} component={HomeScreen} />
+      <Stack.Screen
+        name={APARTMENT}
+        options={{
+          transitionSpec: {
+            open: apartmentTransition,
+            close: apartmentTransition,
+          },
+        }}
+        component={ApartmentScreen}
+      />
     </Stack.Navigator>
   );
 };
 
 export default StackNavigator;
+
+const apartmentTransition = {
+  animation: "spring",
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
