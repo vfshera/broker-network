@@ -21,6 +21,7 @@ const { width, height } = Dimensions.get("window");
 
 const HomeScreen = () => {
   const [menu, setMenu] = useState<number>(3);
+
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.head}>
@@ -289,7 +290,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 40,
+    height: height > 680 ? height * 0.2 : height * 0.15,
   },
   headText: {
     fontSize: 40,
