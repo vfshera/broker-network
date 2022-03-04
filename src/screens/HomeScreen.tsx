@@ -9,12 +9,18 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import React from "react";
-import { Feather, Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import {
+  Feather,
+  Ionicons,
+  AntDesign,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
 const HomeScreen = () => {
+  const [menu, setMenu] = useState<number>(3);
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.head}>
@@ -121,6 +127,43 @@ const HomeScreen = () => {
           </View>
         </ImageBackground>
       </View>
+
+      <View style={styles.navContainer}>
+        <View style={styles.navHolder}>
+          <View style={styles.nav}>
+            <TouchableOpacity
+              onPress={() => setMenu(1)}
+              style={[styles.navBtn, menu == 1 && { backgroundColor: "white" }]}
+            >
+              <Feather name="arrow-up-right" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setMenu(2)}
+              style={[styles.navBtn, menu == 2 && { backgroundColor: "white" }]}
+            >
+              <MaterialIcons name="apartment" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setMenu(3)}
+              style={[styles.navBtn, menu == 3 && { backgroundColor: "white" }]}
+            >
+              <AntDesign name="home" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setMenu(4)}
+              style={[styles.navBtn, menu == 4 && { backgroundColor: "white" }]}
+            >
+              <Feather name="message-circle" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setMenu(5)}
+              style={[styles.navBtn, menu == 5 && { backgroundColor: "white" }]}
+            >
+              <Ionicons name="md-call-outline" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -128,6 +171,39 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  navBtn: {
+    height: 50,
+    width: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+  },
+  nav: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#c5ceda",
+    borderRadius: 40,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+  },
+  navHolder: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#98a5b8",
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+  },
+  navContainer: {
+    width: "100%",
+    flex: 1,
+    paddingHorizontal: 10,
+  },
   smallBtns: {
     width: 65,
     height: 65,
