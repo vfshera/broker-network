@@ -20,6 +20,7 @@ import SecondSlide from "./SecondSlide";
 import ThirdSlide from "./ThirdSlide";
 import { useNavigation } from "@react-navigation/native";
 import { HOME } from "../constants/screens";
+import { PRIMARY_COLOR } from "../constants/colors";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -56,7 +57,7 @@ const Onboarding: FC<IOboardingProps> = () => {
   return (
     <View style={styles.screen}>
       <ScrollView
-        style={{ backgroundColor: "#ffacbe", flex: 1 }}
+        style={{ backgroundColor: PRIMARY_COLOR, flex: 1 }}
         horizontal
         showsHorizontalScrollIndicator={false}
         onScroll={(ev) => scrolled(ev.nativeEvent)}

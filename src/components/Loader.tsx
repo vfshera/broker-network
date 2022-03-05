@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { PRIMARY_COLOR } from "../constants/colors";
 
 const Loader = () => {
   return (
@@ -14,7 +15,7 @@ export default Loader;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: "#292d3e",
+    backgroundColor: PRIMARY_COLOR,
     justifyContent: "center",
     alignItems: "center",
   },

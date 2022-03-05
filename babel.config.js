@@ -14,11 +14,13 @@ module.exports = function (api) {
     env: {
       production: {
         plugins: [
-          "babel-plugin-root-import",
-          {
-            rootPathPrefix: "@app",
-            rootPathSuffix: "src",
-          },
+          [
+            "babel-plugin-root-import",
+            {
+              rootPathPrefix: "@app",
+              rootPathSuffix: "src",
+            },
+          ],
         ],
       },
     },

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "react-native-expo-typescript",
-    "slug": "react-native-expo-typescript",
-    "version": "1.0.0",
+    "name": "Broker Network",
+    "slug": "broker-network",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -23,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "ke.co.sheraclassics.brokernetwork"
     },
     "web": {
       "favicon": "./assets/favicon.png"
